@@ -14,6 +14,9 @@ const map = <A, B> (f: BinaryFunction <A, B>) =>
 // <A,B>(f: BinaryFunction<A,B>) => (a: A) => { map: map (f) (a) }
 // const MoreBasicThanFunctor = (f)
 
+
+// Compare with hkts: https://github.com/pelotom/hkts
+
 const Functor = <A> (a: A) => ({
         map: <B> (f: BinaryFunction <A, B>): IFunctor <B> =>
             Functor (map (f) (a))
