@@ -2,23 +2,22 @@ type BinaryFunction <A, B> =
     (a: A) => B
 
 interface IFunctor <A> {
-    map: <B> (f: BinaryFunction<A,B>) => IFunctor<B>
+    map: <B> (f: BinaryFunction <A, B>) => IFunctor <B>
 }
 
-const map = <A, B> (f: BinaryFunction<A,B>) =>
+const map = <A, B> (f: BinaryFunction <A, B>) =>
     (a: A) =>
         f (a);
 
 // Challenge now is to somehow smoosh map into a chainable API.
 
-<A,B>(f: BinaryFunction<A,B>) => (a: A) => { map: map (f) (a) }
+// <A,B>(f: BinaryFunction<A,B>) => (a: A) => { map: map (f) (a) }
 // const MoreBasicThanFunctor = (f)
 
-function Functor <A>(a: A) {
-    return {
-        map: <B>(f: BinaryFunction<A,B>): IFunctor<B> => Functor (map (f) (a))
-    }
-}
+const Functor = <A> (a: A) => ({
+        map: <B> (f: BinaryFunction <A, B>): IFunctor <B> =>
+            Functor (map (f) (a))
+})
 
 const testBinary:
     BinaryFunction<number, string> =
